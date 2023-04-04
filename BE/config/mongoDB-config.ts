@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 
 dotenv.config();
 
-const mongo = process.env.MONGO_CONNECT as string;
+const { MONGO_USER, MONGO_PASSWORD, MONGO_PATH } = process.env;
 
 const db = mongoose
-  .connect(mongo)
+  .connect(`mongodb+srv:${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_PATH}`)
   .then((res) => {
-    console.log("sample DB connected");
+    return console.log("sample DB connected");
   })
   .catch((err) => {
     console.log(err);
