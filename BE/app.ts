@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import movieRouter from "./routes/movie-app";
-import db from "./config/mongoDB-config";
+import "./config/mongoDB-config";
 import config from "./config/config";
 import mongoose from "mongoose";
 
@@ -13,15 +13,6 @@ const port = process.env.PORT;
 
 app.use(cors());
 app.use(movieRouter);
-
-mongoose
-  .connect(config.mongo.url, { retryWrites: true, w: "majority" })
-  .then(() => {
-    console.log("connected to db");
-  })
-  .catch((error) => {
-    console.log(error);
-  });
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + Typescript Server");
