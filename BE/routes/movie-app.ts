@@ -6,7 +6,7 @@ const movieRouter = express.Router();
 
 movieRouter.get("/movies", async (req, res) => {
   console.log("movies GET request");
-  const result = await Movie.find({}).skip(5).limit(5);
+  const result = await Movie.find({ poster: { $exists: true } }).limit(10);
   if (result) {
     res.status(200).send(result);
   } else {
