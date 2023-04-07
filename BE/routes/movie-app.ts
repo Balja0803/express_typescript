@@ -1,6 +1,6 @@
 import express from "express";
 import Movie from "../model/movie-model";
-import * as mongoose from "mongoose";
+// import * as mongoose from "mongoose";
 
 const movieRouter = express.Router();
 
@@ -23,6 +23,20 @@ movieRouter.get("/movies/:id", async (req, res) => {
     res.status(200).send(result);
   } catch (error) {
     console.log({ error: error });
+  }
+});
+
+movieRouter.get("/movies-ids", async (req, res) => {
+  console.log("static path generate");
+
+  try {
+    const movie = await Movie.find({}).limit(30).select({
+      _id: 1,
+    });
+
+    return res.status(200).send(movie);
+  } catch (error) {
+    console.log(error);
   }
 });
 
